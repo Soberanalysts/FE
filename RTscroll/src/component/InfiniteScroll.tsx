@@ -5,7 +5,7 @@ const NUM_OF_ITEMS_PER_PAGE = 10;
 interface ExchangeData {
     source_currency_code: string;
     target_currency_code: string;
-    fx_rate: string;
+    fx_rate: number;
     date: string;
 }
 const InfiniteScroll: React.FC = () => {
@@ -79,7 +79,17 @@ const InfiniteScroll: React.FC = () => {
             </div>
             ))} */}
             {items.map((item, index) => (
-            <div key={index} style={{ borderBottom: '1px solid #ddd', padding: '16px' }}>
+            <div key={index} 
+                onClick={async () => {
+                    const res = await fetch("http://localhost:5000/summarize", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: item }),
+                    });
+                    const data = await res.json();
+                    alert("요약 결과: " + data.summary);
+                }}
+                style={{ borderBottom: '1px solid #ddd', padding: '16px' }}>
                 <div>{item}</div>
                 {exchangedData[index] && (
                 <div>
