@@ -48,7 +48,17 @@ const InfiniteScroll: React.FC = () => {
 
         <div>
             {items.map((item, index) => (
-            <div key={index} style={{height: '50px', borderBottom: '1px solid #ddd', padding: '8px' }}>
+                        <div key={index} 
+                onClick={async () => {
+                    const res = await fetch("http://localhost:5000/summarize", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: item }),
+                    });
+                    const data = await res.json();
+                    alert("요약 결과: " + data.summary);
+                }}
+                style={{height: '100px', borderBottom: '1px solid #ddd', padding: '8px' }}>
                 {item}
             </div>
             ))}
