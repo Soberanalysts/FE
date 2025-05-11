@@ -93,9 +93,9 @@ const InfiniteScroll: React.FC = () => {
                 <div>{item}</div>
                 {exchangedData[index] && (
                 <div>
-                    <div>통화: {exchangedData[index].source_currency_code} → {exchangedData[index].target_currency_code}</div>
+                    {/* <div>통화: {exchangedData[index].source_currency_code} → {exchangedData[index].target_currency_code}</div> */}
                     <div>환율: {exchangedData[index].fx_rate}</div>
-                    <div>날짜: {exchangedData[index].date}</div>
+                    {/* <div>날짜: {exchangedData[index].date}</div> */}
                 </div>
                 )}
             </div>
