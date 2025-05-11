@@ -7,9 +7,12 @@ const InfiniteScroll: React.FC = () => {
     const [start, setStart] = useState(0);
     const [loading, setLoading] = useState(false);
     const observerRef = useRef<HTMLDivElement | null>(null);
-    
+    const loadingRef = useRef(false);
+
 
     const fetchItems = async () => {
+        if (loadingRef.current) return;
+        loadingRef.current = true;
         setLoading(true);
         const end = start + NUM_OF_ITEMS_PER_PAGE;
         const res = await fetch(`http://localhost:3000/get-items?start=${start}&end=${end}`);
@@ -17,6 +20,7 @@ const InfiniteScroll: React.FC = () => {
         setItems(prev => [...prev, ...data]);
         setStart(end);
         setLoading(false);
+        loadingRef.current = false;
     };
 
     // IntersectionObserver 콜백 함수(화면에 보이는지 확인)
